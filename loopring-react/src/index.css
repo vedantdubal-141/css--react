@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+  --font-space-grotesk: "Space Grotesk", sans-serif;
+
+  --color-loopring-blue: #1C60FF;
+  --color-loopring-purple: #7C3AED;
+  --color-light-purple: #9F5AFD;
+
+  --background-image-gradient-hero: linear-gradient(90deg, #4F46E5, #9333EA);
+  --background-image-gradient-button: linear-gradient(135deg, #7C3AED, #9F5AFD);
+}
+
+@layer base {
+  :root {
+    --primary-blue: #1C60FF;
+    --primary-dark: #0045D6;
+    --accent-purple: #7C3AED;
+    --text-primary: #0F172A;
+    --text-secondary: #64748B;
+    --bg-white: #FFFFFF;
+    --bg-light: #F8FAFC;
+    --bg-blue-section: #1C60FF;
+  }
+
+  body {
+    @apply bg-white text-[#0F172A] font-inter antialiased overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-space-grotesk font-bold;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-gradient-purple {
+    @apply bg-gradient-to-br from-[#7C3AED] to-[#9F5AFD] text-white px-5 py-2 rounded font-semibold text-sm uppercase tracking-wide transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .btn-gradient-blue {
+    @apply bg-gradient-to-r from-[#4F46E5] to-[#9333EA] text-white px-10 py-4 rounded font-semibold text-base uppercase tracking-widest inline-block transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5;
+  }
+
+  .nav-link {
+    @apply text-[#64748B] text-[0.85rem] font-semibold uppercase tracking-wider transition-colors duration-200 relative pb-1 hover:text-[#1C60FF] after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-[#1C60FF] after:transition-all after:duration-300 hover:after:w-full;
+  }
+}
