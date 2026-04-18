@@ -8,7 +8,7 @@ import ProtocolPage from './components/pages/ProtocolPage';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/css--react/loopring">
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <div className="flex-grow">

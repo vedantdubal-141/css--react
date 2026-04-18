@@ -1,0 +1,68 @@
+name: Deploy Multiple Vite Apps to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build_and_deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      - name: Build H&M
+        working-directory: ./H&M
+        run: |
+          npm ci
+          npm run build
+          
+      - name: Build Central Hostel
+        working-directory: ./centralhostel-react
+        run: |
+          npm ci
+          npm run build
+          
+      - name: Build Loopring
+        working-directory: ./loopring-react
+        run: |
+          npm ci
+          npm run build
+
+      - name: Assemble Final Site
+        run: |
+          mkdir _site
+          cp root_index.html _site/index.html
+          cp -r H\&M/dist _site/hm
+          cp -r centralhostel-react/dist _site/centralhostel
+          cp -r loopring-react/dist _site/loopring
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

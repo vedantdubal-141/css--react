@@ -6,7 +6,7 @@ import ContactPage from './pages/ContactPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/css--react/centralhostel">
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/destinations" element={<DestinationsPage />} />
